@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Scoreboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; background: #f5f5f5; }
+    .scoreboard { display: inline-block; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { margin: 10px 0; }
+    .score { font-size: 24px; font-weight: bold; color: #333; }
+  </style>
+</head>
+<body>
+  <div class="scoreboard">
+    <h2 id="team1Name">Team 1</h2>
+    <p class="score" id="team1Score">0/0</p>
+
+    <h2 id="team2Name">Team 2</h2>
+    <p class="score" id="team2Score">0/0</p>
+  </div>
+
+  <script>
+    async function fetchScore() {
+      const response = await fetch("score.json"); // yeh file se data lega
+      const data = await response.json();
+
+      document.getElementById("team1Name").innerText = data.team1.name;
+      document.getElementById("team1Score").innerText = data.team1.score;
+      document.getElementById("team2Name").innerText = data.team2.name;
+      document.getElementById("team2Score").innerText = data.team2.score;
+    }
+
+    setInterval(fetchScore, 5000); // har 5 second baad update karega
+    fetchScore();
+  </script>
+</body>
+</html>
